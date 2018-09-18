@@ -1,0 +1,168 @@
+.box-header .box-title{
+	display: inline-block;
+    font-size: 20px;
+
+    margin: 0;
+    line-height: 1;
+}
+.bg-pink-custom{
+	background: #f35369;
+    color: #fff;
+}
+.list-group-unbordered>.list-group-item{
+	border-bottom: 0;
+}
+.panel {
+    margin-bottom: 20px;
+    background-color: #fff;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.list-panel .panel-heading {
+    overflow: auto;
+    padding: 15px 0;
+    background: #fbfcff;
+    border-bottom: 1px solid rgba(241, 241, 241, .1);
+}
+.input-group {
+    position: relative;
+    display: table;
+    border-collapse: separate;
+}
+.input-group-addon, .input-group-btn {
+    width: 1%;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+.input-group-btn:last-child>.btn, .input-group-btn:last-child>.btn-group {
+    z-index: 2;
+    margin-left: -1px;
+}
+.bg-green-custom {
+    background: #a3ce71;
+    color: #fff;
+}
+.avatar_image_small {
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+}
+.bg-grey-custom {
+    background: #7a7980;
+    color: #fff;
+}
+
+.bg-blue-custom {
+    background: #7fc0d6 !important;
+    color: #fff !important;
+}
+
+.bg-green-custom {
+    background: #a3ce71;
+    color: #fff;
+}
+
+.bg-pink-custom {
+    background: #f35369;
+    color: #fff;
+}
+.bg-lazada-custom{
+    background:#F36F20;
+    color:#fff;
+}
+
+.bg-yellow-custom {
+    background: #f5c33b;
+    color: #fff;
+}
+
+.bg-purple-custom {
+    background: #8c72cb;
+    color: #fff;
+}
+
+.bg-orange-custom {
+    background: #f79a92;
+    color: #fff;
+}
+/*Swich Checkbox*/
+
+.switchchk {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+    .switchchk input {
+        display: none;
+    }
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 21px;
+        width: 21px;
+        left: 1px;
+        bottom: 2px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+
+.table_longtext {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
+
+.datetimepicker-days .table-condensed > tbody > tr > td, .datetimepicker-days .table-condensed th {
+    text-align: center;
+}
+
+@media(max-width:768px) {
+    .main-sidebar .slimScrollDiv .sidebar {
+        overflow-y: scroll !important;
+    }
+}
+.width-table{
+	width: 100%;
+}
