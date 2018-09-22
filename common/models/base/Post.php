@@ -15,6 +15,7 @@ use Yii;
  * @property string $describe
  * @property string $content
  * @property int $user_id
+ * @property string $created_at
  *
  * @property Page $page
  * @property User $user
@@ -37,6 +38,7 @@ class Post extends \yii\db\ActiveRecord
         return [
             [['page_id', 'user_id'], 'integer'],
             [['content'], 'string'],
+            [['created_at'], 'safe'],
             [['post_id', 'title', 'image', 'describe'], 'string', 'max' => 255],
             [['page_id'], 'exist', 'skipOnError' => true, 'targetClass' => Page::className(), 'targetAttribute' => ['page_id' => 'id']],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],
@@ -57,6 +59,7 @@ class Post extends \yii\db\ActiveRecord
             'describe' => Yii::t('app', 'Describe'),
             'content' => Yii::t('app', 'Content'),
             'user_id' => Yii::t('app', 'User ID'),
+            'created_at' => Yii::t('app', 'Created At'),
         ];
     }
 

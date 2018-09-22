@@ -4,6 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\base\InvalidArgumentException;
 use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -12,6 +13,8 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Page;
+use common\models\Post;
 
 /**
  * Site controller
@@ -72,7 +75,11 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $page = Page::find()->all();
+        // var_dump($page); die;
+        return $this->render('index',[
+            'page' => $page,
+        ]);
     }
 
     /**
@@ -138,9 +145,21 @@ class SiteController extends Controller
      *
      * @return mixed
      */
-    public function actionAbout()
+    public function actionPost($id,$page_id)
     {
-        return $this->render('about');
+        $post = Post::find()->joinWith('page')->where(['post.page_id'=> $id])->all();
+        // if (!$post) {
+        //     throw new NotFoundHttpException(Yii::t('app', 'The requested page does not exist.'));
+        // }
+
+        $page = Page::find()->where(['page_id'=> $page_id])->all();
+        
+        return $this->render('post',[
+            'post' => $post,
+            'page' => $page,
+            'id'   => $id,
+            'page_id' => $page_id,
+        ]);
     }
 
     /**

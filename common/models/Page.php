@@ -2,7 +2,7 @@
 
 namespace common\models;
 
-use common\model\base;
+use common\models\base;
 
 
 class Page extends base\Page

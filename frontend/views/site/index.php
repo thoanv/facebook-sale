@@ -1,5 +1,10 @@
 <?php
 /* @var $this yii\web\View */
+
+// use Yii;
+use yii\helpers\Html;
+use yii\helpers\Url;
+
 ?>
 <link rel="stylesheet" type="text/css" href="/facebook/css/facebook.css">
 <section class="content">
@@ -163,67 +168,48 @@
                             </thead>
                             
                             <tbody>
+
+                              <?php foreach ($page as $key => $value): ?>
                               <tr role="row" class="odd">
-
                                 <td class="sorting_1">
-
-                                  <img class="avatar_image_small" src="https://graph.facebook.com/1984591934937591/picture">
-
+                                  <img class="avatar_image_small" src="https://graph.facebook.com/<?= $value['page_id']?>/picture">
                                 </td>
-
-                                <td id="page-id">
-
-                                  
-
-                                </td>
-
-                                <td id="page-name">
-
-                                  
-              
-                                </td>
-
-                                <td class=" text-center">
-
-                                  <label class="switchchk">
-                                    <input onchange="ChangeRegisterPage(this,'1984591934937591')" type="checkbox" checked="">
-                                    <div class="slider round"></div>
-                                  </label>
+                                <td><?= $value['page_id']?></td>
+                                <td class="title_page"><?= $value['title']?></td>
+                                <td>
+                                  <div class="post-com-count-wrapper">
+                                        <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-mini">
+                                            <input data-id="<?= $value['id'] ?>" data-api="ajax/enable-column"
+                                                   data-table="page" data-column="status"
+                                                   type="checkbox" <?= $value['status'] ? 'checked="checked"' : '' ?>
+                                                   title="" name="switch-checkbox">
+                                        </div>
+                                    </div>
 
                                 </td>
 
                                 <td class=" text-left">
 
-                                  <button type="button" style="margin-right: 10px;" class="btn  bg-grey-custom btn-xs" title="Xóa Page" onclick="DeletePage(this,'1984591934937591')">
+                                  <button type="button" style="margin-right: 10px;" class="btn  bg-grey-custom btn-xs" title="Xóa Page" onclick="delete_page(event)" data-id="<?= $value['id']?>">
                                     <i class="fa fa-trash" aria-hidden="true"></i>
                                   </button>
-                                  <a href="/PostFacebookConfig?PageID=" target="_blank" style="margin-right: 10px;" class="btn bg-yellow-custom btn-xs" title="Danh sách Post">
+                                  <a href="<?= Url::to(['site/post','id'=>$value['id'],'page_id'=>$value['page_id']], true) ?>" target="_blank" style="margin-right: 10px;" class="btn bg-yellow-custom btn-xs" title="Danh sách Post">
                                     <i class="fa fa-paper-plane-o" aria-hidden="true"></i>
                                   </a>
-                                  <button type="button" onclick="SysPostOfPage(this,'1984591934937591',null)" style="margin-right: 10px;" class="btn bg-blue-custom btn-xs" title="Đồng Bộ Post">
+                                  
+                                  <button type="button" onclick="SysPostOfPage(<?=$value['id']?>,<?= $value['page_id'] ?>)"  style="<?php if($value['status']==0) {echo "display: none";} else{ echo "margin-right: 10px"; }   ?>      " class="btn bg-blue-custom btn-xs" title="Đồng Bộ Post">
                                     <i class="fa fa-refresh"></i>
                                   </button>
 
+
                                 </td>
                               </tr>
+                            <?php endforeach; ?>
                             </tbody>
                           </table>
                         </div>   
                       </div>
                       <div class="bottom row">
-                        <div class="col-md-3">
-                          <div class="dataTables_length" id="tbPage_length">
-                            <label>Hiển thị 
-                              <select name="tbPage_length" aria-controls="tbPage" class="form-control input-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                              </select> 
-                              dòng
-                            </label>
-                          </div>
-                        </div>
                         <div class="col-md-9">
                           <div class="pullright" style="float: right;">
                             <div class="dataTables_paginate paging_simple_numbers" id="tbPage_paginate">
@@ -307,35 +293,34 @@
                   </div>
               </div>
             </form>
-           
+           <div class="post clearfix"></div>
           </div>
               <!-- /.tab-pane -->
-
-          <div class="tab-pane active" id="settings">
+           <div class="tab-pane" id="settings">
             <div class="col-md-12">
                 <div class="panel panel-category list-panel" id="list-panel">
-                    <div class="panel-heading list-panel-heading">
-                        <div class="col-md-6 search-top">
-                            <div class="input-group input-group-sm pull-right">
-                                <input type="text" class="form-control" id="Info2" name="Info2" placeholder="Tìm Số điện thoại">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn bg-green-custom btn-flat" onclick="LoadBlackListPhone()">
-                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Tìm kiếm
-                                    </button>
-                                </span>
-                            </div>
-
-                        </div>
-                        <div class="col-md-6 pull-right search-top">
-                            <button type="button" data-toggle="modal" data-target="#modelBlackListPhone" class="btn bg-pink-custom btn-sm pull-right" title="Thêm mới BlackList Phone"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>
-                        </div>
-
+                  <div class="panel-heading list-panel-heading">
+                    <div class="col-md-6 search-top">
+                      <div class="input-group input-group-sm pull-right">
+                          <input type="text" class="form-control" id="Info2" name="Info2" placeholder="Tìm Số điện thoại">
+                          <span class="input-group-btn">
+                            <button type="button" class="btn bg-green-custom btn-flat" onclick="LoadBlackListPhone()">
+                              <span class="glyphicon glyphicon-search" aria-hidden="true"></span> Tìm kiếm
+                            </button>
+                          </span>
+                      </div>
                     </div>
+                    <div class="col-md-6 pull-right search-top">
+                        <button type="button" data-toggle="modal" data-target="#modelBlackListPhone" class="btn bg-pink-custom btn-sm pull-right" title="Thêm mới BlackList Phone"><i class="glyphicon glyphicon-plus"></i> Thêm mới</button>
+                    </div>
+                  </div>
+
                     <div class="panel-body">
                         <div id="tbBlacklist_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
                           <div class="top"></div>
                           <div id="tbBlacklist_processing" class="dataTables_processing" style="display: none;">Đang xử lý...
-                          </div><div class="dataTables_scroll">
+                          </div>
+                          <div class="dataTables_scroll">
                             <div class="dataTables_scrollHead" style="overflow: hidden; position: relative; border: 0px; width: 100%;">
                               <div class="dataTables_scrollHeadInner" style="box-sizing: content-box; width: 100px; padding-right: 0px;">
                                 <table class="table table-striped dataTable no-footer" cellspacing="0" role="grid" style="margin-left: 0px; width: 100px;">
@@ -358,63 +343,44 @@
                               <table id="tbBlacklist" class="table table-striped dataTable no-footer width-table" cellspacing="0" role="grid" >
                                 <thead>
                                   <tr role="row" style="height: 0px;">
-
                                     <th class="sorting_asc" aria-controls="tbBlacklist" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Số điện thoại: activate to sort column descending" style="padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px; width: 0px;">
-
                                       <div class="dataTables_sizing" style="height:0;overflow:hidden; ">Số điện thoại</div>
-
                                     </th>
-
                                     <th class="text-center sorting_disabled" rowspan="1" colspan="1" style="width: 10%; padding-top: 0px; padding-bottom: 0px; border-top-width: 0px; border-bottom-width: 0px; height: 0px;" aria-label="">
-
                                       <div class="dataTables_sizing" style="height:0;overflow:hidden;">
-                                      
-                                    </div>
-                                  </th>
-                                </tr>
-                            </thead>
-                            
-                            <tbody>
+                                      </div>
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
 
-                              <tr role="row" class="odd">
+                                  <tr role="row" class="odd">
 
-                                <td class="sorting_1">01227703823</td>
+                                    <td class="sorting_1">01227703823</td>
 
-                                <td class=" text-center">
+                                    <td class=" text-center">
 
-                                  <button type="button" class="btn  bg-grey-custom btn-xs" title="Xóa" onclick="DeletePhone(this,4)">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                  </button>
+                                      <button type="button" class="btn  bg-grey-custom btn-xs" title="Xóa" onclick="DeletePhone(this,4)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                      </button>
 
-                                </td>
+                                    </td>
 
-                              </tr>
+                                  </tr>
 
-                              <tr role="row" class="even">
-                                <td class="sorting_1">01626443357</td>
-                                <td class=" text-center">
-                                  <button type="button" class="btn  bg-grey-custom btn-xs" title="Xóa" onclick="DeletePhone(this,18)">
-                                    <i class="glyphicon glyphicon-trash"></i>
-                                  </button> 
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                        </div>
-                      </div>
-                      <div class="bottom row">
-                        <div class="col-md-3">
-                          <div class="dataTables_length" id="tbBlacklist_length">
-                            <label>Hiển thị 
-                              <select name="tbBlacklist_length" aria-controls="tbBlacklist" class="form-control input-sm">
-                                <option value="10">10</option>
-                                <option value="25">25</option>
-                                <option value="50">50</option>
-                                <option value="100">100</option>
-                              </select> dòng</label>
+                                  <tr role="row" class="even">
+                                    <td class="sorting_1">01626443357</td>
+                                    <td class=" text-center">
+                                      <button type="button" class="btn  bg-grey-custom btn-xs" title="Xóa" onclick="DeletePhone(this,18)">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                      </button> 
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
                           </div>
-                        </div>
-                        <div class="col-md-9">
+                          <div class="col-md-9">
                           <div class="pullright">
                             <div class="dataTables_paginate paging_simple_numbers" id="tbBlacklist_paginate">
                               <ul class="pagination">
@@ -440,16 +406,16 @@
                               </ul>
                             </div>
                           </div>
+                          </div>
                         </div>
                       </div>
-                      <div class="clear"></div></div>
                     </div>
-                </div>
-            </div>
-             <div class="post clearfix"></div>
+                  </div>
+           <div class="post clearfix"></div>
           </div>
+        
           <!-- /.tab-pane -->
-        </div>
+            </div>
             <!-- /.tab-content -->
           </div>
           <!-- /.nav-tabs-custom -->
@@ -457,7 +423,13 @@
         <!-- /.col -->
       </div>
       <!-- /.row -->
-
     </section>
     <!-- /.content -->
+ <div id="loading" style="display: none" class="loading">Loading…</div>
+
+ <link rel="stylesheet" type="text/css" href="/css/loader.css">
+ <script src="/js/notify.js" type="text/javascript" charset="utf-8" async defer>
+   
+ </script>
+
 

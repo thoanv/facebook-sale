@@ -166,3 +166,10 @@ input:checked + .slider:before {
 .width-table{
 	width: 100%;
 }
+.table_longtext{
+    
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 250px;
+}
